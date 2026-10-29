@@ -7,8 +7,7 @@
     <title>Campus Lost & Found | Student & Faculty Portal</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap"
         rel="stylesheet">
     <style>
         :root {
@@ -1831,6 +1830,1010 @@
             width: 20px;
             height: 20px;
         }
+
+        /* =========================================================
+           MOBILE BOTTOM NAVIGATION BAR
+           ========================================================= */
+        .mobile-bottom-nav {
+            display: none;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: var(--surface);
+            border-top: 1px solid var(--line);
+            z-index: 40;
+            padding-bottom: env(safe-area-inset-bottom, 0px);
+        }
+
+        .mobile-bottom-nav-inner {
+            display: flex;
+            justify-content: space-around;
+            align-items: stretch;
+        }
+
+        .mob-nav-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 2px;
+            flex: 1 1 0%;
+            padding: 8px 4px 6px;
+            text-decoration: none;
+            color: var(--muted);
+            font-size: 0.6875rem;
+            font-weight: 600;
+            background: none;
+            border: none;
+            cursor: pointer;
+            position: relative;
+            -webkit-tap-highlight-color: transparent;
+            transition: color 0.15s ease;
+        }
+
+        .mob-nav-item[aria-current="page"] {
+            color: var(--primary);
+        }
+
+        .mob-nav-item[aria-current="page"]::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 25%;
+            right: 25%;
+            height: 2.5px;
+            border-radius: 0 0 2px 2px;
+            background: var(--primary);
+        }
+
+        .mob-nav-icon {
+            width: 22px;
+            height: 22px;
+        }
+
+        .mob-nav-badge {
+            position: absolute;
+            top: 4px;
+            right: calc(50% - 18px);
+            background: #dc2626;
+            color: #ffffff;
+            font-size: 0.6rem;
+            font-weight: 700;
+            min-width: 16px;
+            height: 16px;
+            line-height: 16px;
+            text-align: center;
+            border-radius: var(--radius-full);
+            padding: 0 4px;
+        }
+
+        /* =========================================================
+           COMPREHENSIVE MOBILE-FIRST RESPONSIVE RULES
+           ========================================================= */
+
+        /* --- Tablets and below (768px) --- */
+        @media (max-width: 768px) {
+            .wrap {
+                padding: 0 16px;
+            }
+
+            .view {
+                padding: 20px 0 100px;
+            }
+
+            h1 {
+                font-size: 1.65rem;
+            }
+
+            .lead {
+                font-size: 0.95rem;
+            }
+
+            /* Top Strip: stack vertically */
+            .strip-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+
+            .strip-item {
+                font-size: 0.75rem;
+                flex-wrap: wrap;
+                gap: 4px;
+            }
+
+            /* Header: show mobile bottom nav, collapse top nav */
+            .header-right nav {
+                display: none;
+            }
+
+            .mobile-bottom-nav {
+                display: block;
+            }
+
+            .bar {
+                padding: 10px 0;
+                gap: 10px;
+            }
+
+            .brand-icon-box {
+                width: 36px;
+                height: 36px;
+            }
+
+            .brand-icon-box svg {
+                width: 18px;
+                height: 18px;
+            }
+
+            .brand-name {
+                font-size: 1.05rem;
+            }
+
+            .brand-sub {
+                font-size: 0.65rem;
+            }
+
+            .theme-toggle-btn {
+                width: 36px;
+                height: 36px;
+            }
+
+            /* Hero Banner */
+            .hero-banner {
+                flex-direction: column;
+                align-items: stretch;
+                padding: 18px;
+                gap: 16px;
+                border-radius: var(--radius-md);
+                margin-bottom: 18px;
+            }
+
+            .hero-banner h1 {
+                font-size: 1.4rem;
+            }
+
+            .hero-banner .lead {
+                font-size: 0.9rem;
+                margin-bottom: 14px;
+            }
+
+            .hero-badge {
+                font-size: 0.75rem;
+                padding: 3px 10px;
+                margin-bottom: 8px;
+            }
+
+            .hero-actions {
+                flex-direction: column;
+                gap: 10px;
+            }
+
+            .hero-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .hero-office-pill {
+                min-width: auto;
+                padding: 14px 16px;
+            }
+
+            /* Filter Card */
+            .filter-card {
+                padding: 14px;
+                border-radius: var(--radius-md);
+                margin-bottom: 16px;
+            }
+
+            .filter-top-row {
+                flex-direction: column;
+                gap: 10px;
+                margin-bottom: 12px;
+            }
+
+            .search-wrap {
+                flex: 1 1 auto;
+                width: 100%;
+            }
+
+            .type-segmented {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .type-pill {
+                flex: 1 1 0%;
+                text-align: center;
+                padding: 8px 10px;
+                font-size: 0.8125rem;
+            }
+
+            .filters-row {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .filters-row .filter-col:last-child label {
+                display: none;
+            }
+
+            .filters-row .filter-col:last-child {
+                display: flex;
+                justify-content: flex-end;
+            }
+
+            .quick-chips-wrap {
+                margin-top: 10px;
+                padding-top: 10px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 8px;
+            }
+
+            .chips-scroll {
+                overflow-x: auto;
+                flex-wrap: nowrap;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                padding-bottom: 4px;
+                width: 100%;
+            }
+
+            .chips-scroll::-webkit-scrollbar {
+                display: none;
+            }
+
+            .cat-chip {
+                flex-shrink: 0;
+                white-space: nowrap;
+            }
+
+            /* Grid: single column */
+            .grid-list {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            /* Card Items */
+            .card-item {
+                padding: 16px;
+                border-radius: var(--radius-md);
+                gap: 10px;
+            }
+
+            .item-head {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .badge-cluster {
+                justify-content: flex-start;
+            }
+
+            .cat-title {
+                font-size: 1rem;
+            }
+
+            .item-desc {
+                font-size: 0.875rem;
+                -webkit-line-clamp: 2;
+            }
+
+            .item-meta {
+                gap: 6px;
+                font-size: 0.75rem;
+            }
+
+            .ref-pill {
+                margin-left: 0;
+            }
+
+            .item-action-hint {
+                font-size: 0.75rem;
+            }
+
+            /* Report Form */
+            .report-layout {
+                grid-template-columns: 1fr;
+                gap: 18px;
+            }
+
+            .report-card {
+                padding: 18px;
+                border-radius: var(--radius-md);
+            }
+
+            .seg {
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }
+
+            .seg-opt {
+                padding: 12px 14px;
+            }
+
+            .privacy-banner {
+                padding: 12px 14px;
+                font-size: 0.8125rem;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+                gap: 14px;
+                margin-bottom: 16px;
+            }
+
+            .f-full {
+                grid-column: 1;
+            }
+
+            .report-guide-card {
+                padding: 18px;
+                border-radius: var(--radius-md);
+            }
+
+            /* Staff Dashboard */
+            .staff-stats-grid {
+                grid-template-columns: 1fr;
+                gap: 10px;
+                margin-bottom: 18px;
+            }
+
+            .stat-card {
+                padding: 14px 16px;
+                gap: 12px;
+            }
+
+            .stat-num {
+                font-size: 1.4rem;
+            }
+
+            .stat-icon {
+                font-size: 1.6rem;
+            }
+
+            .staff-toolbar {
+                padding: 10px 14px;
+                flex-direction: column;
+                gap: 10px;
+                align-items: stretch;
+            }
+
+            .staff-toolbar .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .staffrow {
+                padding: 14px 16px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 12px;
+            }
+
+            .staff-info {
+                flex: auto;
+            }
+
+            .staff-header-line {
+                flex-wrap: wrap;
+                gap: 6px;
+            }
+
+            .staff-desc {
+                font-size: 0.875rem;
+            }
+
+            .acts {
+                justify-content: flex-end;
+            }
+
+            .section-title-wrap h2 {
+                font-size: 1.15rem;
+            }
+
+            /* Dialog */
+            dialog {
+                width: calc(100% - 16px);
+                max-width: 100%;
+                border-radius: var(--radius-md);
+                max-height: calc(100dvh - 20px);
+            }
+
+            .dh {
+                padding: 14px 16px;
+                gap: 8px;
+            }
+
+            .dh h3 {
+                font-size: 1rem;
+            }
+
+            .dlg-title-icon {
+                width: 24px;
+                height: 24px;
+            }
+
+            .db {
+                padding: 14px 16px;
+                gap: 12px;
+                max-height: 70dvh;
+            }
+
+            .dlg-meta-grid {
+                grid-template-columns: 1fr;
+                gap: 8px;
+            }
+
+            .dlg-claim-notice {
+                padding: 12px;
+                font-size: 0.8125rem;
+            }
+
+            .dlg-claim-notice h4 {
+                font-size: 0.875rem;
+            }
+
+            .dlg-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .dlg-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            /* Toast */
+            .toast {
+                left: 16px;
+                right: 16px;
+                bottom: calc(70px + env(safe-area-inset-bottom, 0px));
+                transform: none;
+                max-width: none;
+                font-size: 0.875rem;
+                padding: 10px 16px;
+                border-radius: var(--radius-md);
+                text-align: center;
+                justify-content: center;
+            }
+
+            @keyframes slideUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(12px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
+
+            /* Footer */
+            footer {
+                padding: 24px 0 calc(80px + env(safe-area-inset-bottom, 0px));
+                margin-top: 24px;
+            }
+
+            .footer-content {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 14px;
+            }
+
+            .footer-left {
+                font-size: 0.8125rem;
+            }
+
+            .footer-links {
+                flex-wrap: wrap;
+                gap: 10px;
+            }
+
+            /* Empty State */
+            .empty-state-box {
+                padding: 32px 16px;
+            }
+
+            .empty-state-box h3 {
+                font-size: 1.05rem;
+            }
+
+            .empty-state-box p {
+                font-size: 0.875rem;
+            }
+
+            .empty-actions {
+                flex-direction: column;
+                gap: 8px;
+            }
+
+            .empty-actions .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .empty-compact {
+                padding: 16px;
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
+        /* --- Small phones (480px and under, e.g. iPhone SE, old Androids) --- */
+        @media (max-width: 480px) {
+            .wrap {
+                padding: 0 12px;
+            }
+
+            h1 {
+                font-size: 1.4rem;
+            }
+
+            .lead {
+                font-size: 0.875rem;
+                margin-bottom: 16px;
+            }
+
+            .campus-top-strip {
+                padding: 5px 0;
+                font-size: 0.6875rem;
+            }
+
+            .strip-item span:nth-child(2) {
+                display: none;
+            }
+
+            .brand-link {
+                gap: 8px;
+            }
+
+            .brand-icon-box {
+                width: 32px;
+                height: 32px;
+            }
+
+            .brand-icon-box svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .brand-name {
+                font-size: 0.95rem;
+            }
+
+            .brand-sub {
+                display: none;
+            }
+
+            .theme-toggle-btn {
+                width: 34px;
+                height: 34px;
+            }
+
+            .hero-banner {
+                padding: 14px;
+                gap: 12px;
+            }
+
+            .hero-banner h1 {
+                font-size: 1.2rem;
+            }
+
+            .hero-badge {
+                font-size: 0.6875rem;
+                padding: 2px 8px;
+            }
+
+            .hero-office-pill {
+                padding: 10px 12px;
+            }
+
+            .office-pill-header {
+                font-size: 0.6875rem;
+            }
+
+            .office-pill-body strong {
+                font-size: 0.875rem;
+            }
+
+            .filter-card {
+                padding: 10px;
+            }
+
+            input[type="search"],
+            input[type="date"],
+            select,
+            textarea {
+                font-size: 1rem;
+                padding: 10px 12px;
+            }
+
+            input[type="search"] {
+                padding-left: 38px;
+                padding-right: 32px;
+                font-size: 0.9375rem;
+            }
+
+            .search-icon {
+                left: 12px;
+            }
+
+            .search-icon svg {
+                width: 16px;
+                height: 16px;
+            }
+
+            .type-pill {
+                padding: 7px 8px;
+                font-size: 0.75rem;
+            }
+
+            .cat-chip {
+                font-size: 0.75rem;
+                padding: 4px 9px;
+            }
+
+            .card-item {
+                padding: 14px;
+            }
+
+            .cat-icon-box {
+                width: 32px;
+                height: 32px;
+            }
+
+            .cat-icon-box .cat-ico {
+                width: 16px;
+                height: 16px;
+            }
+
+            .cat-title {
+                font-size: 0.9375rem;
+            }
+
+            .kind-tag,
+            .status-tag {
+                font-size: 0.6875rem;
+                padding: 2px 6px;
+            }
+
+            .item-desc {
+                font-size: 0.8125rem;
+            }
+
+            .item-meta {
+                font-size: 0.7rem;
+                gap: 5px;
+            }
+
+            .item-meta svg {
+                width: 12px;
+                height: 12px;
+            }
+
+            .meta-pill {
+                gap: 3px;
+            }
+
+            .ref-pill {
+                font-size: 0.675rem;
+                padding: 1px 5px;
+            }
+
+            .seg-opt {
+                padding: 10px 12px;
+                gap: 10px;
+            }
+
+            .seg-icon {
+                font-size: 1.25rem;
+            }
+
+            .seg-content strong {
+                font-size: 0.875rem;
+            }
+
+            .seg-content small {
+                font-size: 0.75rem;
+            }
+
+            .privacy-banner {
+                gap: 8px;
+                padding: 10px 12px;
+            }
+
+            .privacy-icon {
+                font-size: 1rem;
+            }
+
+            .btn {
+                padding: 10px 14px;
+                font-size: 0.875rem;
+            }
+
+            .btn.sm {
+                padding: 6px 10px;
+                font-size: 0.8125rem;
+            }
+
+            .btn-submit {
+                padding: 12px 16px;
+                font-size: 0.9375rem;
+            }
+
+            .stat-card {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+
+            .stat-num {
+                font-size: 1.25rem;
+            }
+
+            .stat-icon {
+                font-size: 1.35rem;
+            }
+
+            .stat-label {
+                font-size: 0.75rem;
+            }
+
+            .section-title-wrap h2 {
+                font-size: 1.05rem;
+            }
+
+            .guide-step {
+                gap: 8px;
+            }
+
+            .step-num {
+                width: 24px;
+                height: 24px;
+                font-size: 0.75rem;
+            }
+
+            .step-text strong {
+                font-size: 0.875rem;
+            }
+
+            .step-text p {
+                font-size: 0.75rem;
+            }
+
+            .guide-urgent-box {
+                padding: 10px;
+                font-size: 0.75rem;
+            }
+
+            .report-guide-card {
+                padding: 14px;
+            }
+
+            .report-guide-card h3 {
+                font-size: 1rem;
+            }
+
+            .mob-nav-item {
+                font-size: 0.625rem;
+                padding: 6px 2px 5px;
+            }
+
+            .mob-nav-icon {
+                width: 20px;
+                height: 20px;
+            }
+
+            dialog {
+                width: calc(100% - 12px);
+                max-height: calc(100dvh - 12px);
+            }
+
+            .dh {
+                padding: 12px 14px;
+            }
+
+            .dh h3 {
+                font-size: 0.9375rem;
+                gap: 6px;
+            }
+
+            .db {
+                padding: 12px 14px;
+                gap: 10px;
+            }
+
+            .dlg-desc-box {
+                padding: 10px 12px;
+            }
+
+            .dlg-desc-text {
+                font-size: 0.9375rem;
+            }
+
+            .dlg-meta-card {
+                padding: 8px 10px;
+                gap: 6px;
+            }
+
+            .meta-icon {
+                font-size: 1rem;
+            }
+
+            .meta-val {
+                font-size: 0.8125rem;
+            }
+        }
+
+        /* --- Tiny phones (360px and under, e.g. iPhone SE 1st gen, Galaxy S3) --- */
+        @media (max-width: 360px) {
+            .wrap {
+                padding: 0 10px;
+            }
+
+            h1 {
+                font-size: 1.25rem;
+            }
+
+            .hero-banner {
+                padding: 12px;
+            }
+
+            .hero-banner h1 {
+                font-size: 1.1rem;
+            }
+
+            .hero-banner .lead {
+                font-size: 0.8125rem;
+            }
+
+            .type-segmented {
+                flex-wrap: wrap;
+            }
+
+            .cat-chip {
+                font-size: 0.6875rem;
+                padding: 3px 7px;
+            }
+        }
+
+        /* --- Extra-wide: 2-column stats on mid phones --- */
+        @media (min-width: 420px) and (max-width: 768px) {
+            .staff-stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .staff-stats-grid .stat-card:last-child {
+                grid-column: 1 / -1;
+            }
+        }
+
+        /* --- Landscape phones --- */
+        @media (max-height: 500px) and (orientation: landscape) {
+            .hero-banner {
+                flex-direction: row;
+                align-items: center;
+                padding: 14px 18px;
+            }
+
+            .hero-actions {
+                flex-direction: row;
+            }
+
+            .hero-actions .btn {
+                width: auto;
+            }
+
+            .grid-list {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .view {
+                padding: 12px 0 70px;
+            }
+
+            .mobile-bottom-nav {
+                display: block;
+            }
+
+            .header-right nav {
+                display: none;
+            }
+
+            dialog {
+                max-height: calc(100dvh - 10px);
+            }
+
+            .db {
+                max-height: 60dvh;
+            }
+        }
+
+        /* --- Touch device optimisations --- */
+        @media (hover: none) and (pointer: coarse) {
+            .card-item:hover {
+                transform: none;
+                border-color: var(--line);
+                box-shadow: var(--shadow-sm);
+            }
+
+            .card-item:active {
+                transform: scale(0.98);
+                border-color: var(--primary);
+                transition-duration: 0.05s;
+            }
+
+            .btn:hover {
+                transform: none;
+            }
+
+            .btn:active {
+                transform: scale(0.97);
+                transition-duration: 0.05s;
+            }
+
+            input[type="search"],
+            input[type="date"],
+            select,
+            textarea {
+                font-size: max(1rem, 16px);
+            }
+
+            .type-pill,
+            .cat-chip,
+            .mob-nav-item,
+            .btn.sm {
+                min-height: 44px;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .mob-nav-item {
+                min-height: 48px;
+            }
+        }
+
+        /* --- Dark-mode error text --- */
+        @media (prefers-color-scheme: dark) {
+            :root:not([data-theme="light"]) .err {
+                color: #ff8a7a;
+            }
+
+            :root:not([data-theme="light"]) .btn-reject {
+                border-color: #5c1e26;
+            }
+
+            :root:not([data-theme="light"]) .btn-reject:hover {
+                background: #351318;
+            }
+        }
+
+        [data-theme="dark"] .err {
+            color: #ff8a7a;
+        }
+
+        /* --- High-DPI / Retina crispness --- */
+        @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+            .cat-ico {
+                shape-rendering: geometricPrecision;
+            }
+        }
+
+        /* --- Prevent horizontal scroll on any phone --- */
+        html, body {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
+        /* Ensure images and tables don't break layout */
+        img, svg, video, canvas {
+            max-width: 100%;
+            height: auto;
+        }
+
     </style>
 </head>
 
@@ -1856,7 +2859,8 @@
         <div class="wrap bar">
             <a href="#listings" class="brand-link" aria-label="Campus Lost and Found home">
                 <div class="brand-icon-box">
-                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.2"
+                        stroke-linecap="round" stroke-linejoin="round">
                         <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
                     </svg>
                 </div>
@@ -1869,24 +2873,50 @@
             <div class="header-right">
                 <nav aria-label="Main">
                     <a href="#listings" data-v="listings">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <circle cx="11" cy="11" r="8" />
+                            <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                        </svg>
                         <span>Browse</span>
                         <span class="nav-badge" id="nav-browse-badge">0</span>
                     </a>
                     <a href="#report" data-v="report">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7" />
+                            <path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z" />
+                        </svg>
                         <span>Report an item</span>
                     </a>
                     <a href="#staff" data-v="staff">
-                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+                        </svg>
                         <span>Staff Desk</span>
                         <span class="nav-badge" id="nav-staff-badge" style="display:none">0</span>
                     </a>
                 </nav>
 
-                <button class="theme-toggle-btn" id="theme-toggle" type="button" title="Toggle dark/light mode" aria-label="Toggle dark/light theme">
-                    <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-                    <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+                <button class="theme-toggle-btn" id="theme-toggle" type="button" title="Toggle dark/light mode"
+                    aria-label="Toggle dark/light theme">
+                    <svg class="sun-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <circle cx="12" cy="12" r="5" />
+                        <line x1="12" y1="1" x2="12" y2="3" />
+                        <line x1="12" y1="21" x2="12" y2="23" />
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                        <line x1="1" y1="12" x2="3" y2="12" />
+                        <line x1="21" y1="12" x2="23" y2="12" />
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                    </svg>
+                    <svg class="moon-icon" viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                        stroke-width="2">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                    </svg>
                 </button>
             </div>
         </div>
@@ -1899,14 +2929,24 @@
                 <div class="hero-content">
                     <div class="hero-badge">🎓 Campus Community Board</div>
                     <h1>Lost something? Found something?</h1>
-                    <p class="lead">Search active campus reports before asking around. If you spot your belonging, click to view location details and easy recovery steps.</p>
+                    <p class="lead">Search active campus reports before asking around. If you spot your belonging, click
+                        to view location details and easy recovery steps.</p>
                     <div class="hero-actions">
                         <a href="#report" class="btn btn-hero">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="12" y1="5" x2="12" y2="19" />
+                                <line x1="5" y1="12" x2="19" y2="12" />
+                            </svg>
                             Report Lost or Found Item
                         </a>
                         <button type="button" class="btn alt" id="open-guide-btn">
-                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+                            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10" />
+                                <line x1="12" y1="16" x2="12" y2="12" />
+                                <line x1="12" y1="8" x2="12.01" y2="8" />
+                            </svg>
                             Office Hours &amp; Drop-off Info
                         </button>
                     </div>
@@ -1927,10 +2967,16 @@
                         <label for="fq" class="sr-only">Search</label>
                         <div class="input-icon-group">
                             <span class="search-icon">
-                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                                <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                                    stroke-width="2">
+                                    <circle cx="11" cy="11" r="8" />
+                                    <line x1="21" y1="21" x2="16.65" y2="16.65" />
+                                </svg>
                             </span>
-                            <input id="fq" type="search" placeholder="Search by keyword, item, or location (e.g. “bottle”, “library”, “earbuds”)...">
-                            <button type="button" id="fq-clear" class="clear-btn" aria-label="Clear search" hidden>×</button>
+                            <input id="fq" type="search"
+                                placeholder="Search by keyword, item, or location (e.g. “bottle”, “library”, “earbuds”)...">
+                            <button type="button" id="fq-clear" class="clear-btn" aria-label="Clear search"
+                                hidden>×</button>
                         </div>
                     </div>
 
@@ -1966,7 +3012,11 @@
                     <div class="filter-col">
                         <label>&nbsp;</label>
                         <button type="button" class="btn alt sm" id="clear-filters-btn">
-                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                            <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <line x1="18" y1="6" x2="6" y2="18" />
+                                <line x1="6" y1="6" x2="18" y2="18" />
+                            </svg>
                             Clear Filters
                         </button>
                     </div>
@@ -1992,7 +3042,8 @@
         <section class="view" id="v-report">
             <div class="view-header">
                 <h1>Submit an Item Report</h1>
-                <p class="lead">Tell us what was lost or found. Campus staff review every report before it appears in public listings to protect privacy and prevent false claims.</p>
+                <p class="lead">Tell us what was lost or found. Campus staff review every report before it appears in
+                    public listings to protect privacy and prevent false claims.</p>
             </div>
 
             <div class="report-layout">
@@ -2023,7 +3074,8 @@
                         <div class="privacy-icon">🔒</div>
                         <div>
                             <strong>Campus Privacy Protection</strong>
-                            <p>Don’t include ID numbers, phone numbers, or email addresses in the description. The Student Services office will securely connect you with the owner or finder.</p>
+                            <p>Don’t include ID numbers, phone numbers, or email addresses in the description. The
+                                Student Services office will securely connect you with the owner or finder.</p>
                         </div>
                     </div>
 
@@ -2054,14 +3106,19 @@
                             </div>
                             <textarea id="rd" maxlength="240"
                                 placeholder="Color, brand, size, stickers, and any unique marks that help identify it..."></textarea>
-                            <span class="field-hint">Minimum 10 characters. Avoid entering sensitive personal identification or phone numbers.</span>
+                            <span class="field-hint">Minimum 10 characters. Avoid entering sensitive personal
+                                identification or phone numbers.</span>
                         </div>
                     </div>
 
                     <p class="err" id="rerr" role="alert"></p>
                     <button class="btn btn-submit" type="submit">
                         <span>Submit Item Report</span>
-                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+                        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <line x1="5" y1="12" x2="19" y2="12" />
+                            <polyline points="12 5 19 12 12 19" />
+                        </svg>
                     </button>
                 </form>
 
@@ -2093,7 +3150,8 @@
 
                     <div class="guide-urgent-box">
                         <strong>Lost High-Value Items?</strong>
-                        <p>For lost laptops, wallets, credit cards, or government IDs, also notify <strong>Campus Security</strong> (Ext. 2222) immediately.</p>
+                        <p>For lost laptops, wallets, credit cards, or government IDs, also notify <strong>Campus
+                                Security</strong> (Ext. 2222) immediately.</p>
                     </div>
                 </aside>
             </div>
@@ -2104,7 +3162,8 @@
             <div class="view-header">
                 <span class="header-tag">Administrative Access</span>
                 <h1>Staff Desk &amp; Review Dashboard</h1>
-                <p class="lead">Review incoming reports from students and faculty, approve valid items for public listing, and manage active claims. (Simulated demo mode).</p>
+                <p class="lead">Review incoming reports from students and faculty, approve valid items for public
+                    listing, and manage active claims. (Simulated demo mode).</p>
             </div>
 
             <!-- Stats Bar -->
@@ -2138,7 +3197,10 @@
                     <span class="meta" id="storeinfo"></span>
                 </div>
                 <button class="btn alt sm" id="reset" type="button">
-                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M23 4v6h-6"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+                    <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2">
+                        <path d="M23 4v6h-6" />
+                        <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10" />
+                    </svg>
                     Reset Sample Data
                 </button>
             </div>
@@ -2157,7 +3219,8 @@
                     <h2>Active Campus Listings</h2>
                     <span class="section-count" id="badge-active">0</span>
                 </div>
-                <p class="section-sub">Items currently listed as Open or Claimed. Update their status as students arrive for pickup.</p>
+                <p class="section-sub">Items currently listed as Open or Claimed. Update their status as students arrive
+                    for pickup.</p>
                 <div class="list staff-list" id="act"></div>
             </div>
         </section>
@@ -2168,7 +3231,8 @@
         <div class="wrap footer-content">
             <div class="footer-left">
                 <strong>University Campus Lost &amp; Found System</strong>
-                <span>Student &amp; Faculty Services • Central Office: Student Services Room 104 • Open Weekdays 8:30 AM–4:30 PM. Prototype demonstration with local browser storage.</span>
+                <span>Student &amp; Faculty Services • Central Office: Student Services Room 104 • Open Weekdays 8:30
+                    AM–4:30 PM. Prototype demonstration with local browser storage.</span>
             </div>
             <div class="footer-links">
                 <a href="#listings" class="footer-link">Browse Items</a>
@@ -2231,13 +3295,15 @@
             <div class="dlg-claim-notice notice-found">
                 <h4>What to bring when claiming an item</h4>
                 <p>1. Valid <strong>Student ID</strong> or <strong>Faculty/Staff ID</strong> card.<br>
-                2. Item <strong>Reference ID</strong> (e.g. #L001).<br>
-                3. Verifiable proof of ownership: ability to unlock device, photo of the item, or description of contents not disclosed publicly.</p>
+                    2. Item <strong>Reference ID</strong> (e.g. #L001).<br>
+                    3. Verifiable proof of ownership: ability to unlock device, photo of the item, or description of
+                    contents not disclosed publicly.</p>
             </div>
 
             <div class="dlg-claim-notice notice-lost">
                 <h4>Lost a Student ID Card?</h4>
-                <p>Immediately report it lost to Campus Card Services to freeze your dining dollars, printing balance, and building access permissions.</p>
+                <p>Immediately report it lost to Campus Card Services to freeze your dining dollars, printing balance,
+                    and building access permissions.</p>
             </div>
 
             <div class="dlg-actions">
@@ -2248,6 +3314,25 @@
 
     <!-- Toast Notification -->
     <div class="toast" id="toast" role="status" hidden></div>
+
+    <!-- Mobile Bottom Navigation Bar -->
+    <nav class="mobile-bottom-nav" aria-label="Mobile navigation">
+        <div class="mobile-bottom-nav-inner">
+            <a href="#listings" class="mob-nav-item" data-v="listings" aria-label="Browse items">
+                <svg class="mob-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <span>Browse</span>
+            </a>
+            <a href="#report" class="mob-nav-item" data-v="report" aria-label="Report an item">
+                <svg class="mob-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+                <span>Report</span>
+            </a>
+            <a href="#staff" class="mob-nav-item" data-v="staff" aria-label="Staff dashboard">
+                <svg class="mob-nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                <span>Staff</span>
+                <span class="mob-nav-badge" id="mob-staff-badge" style="display:none">0</span>
+            </a>
+        </div>
+    </nav>
 
     <script>
         var KEY = "lf-prototype-v1",
@@ -2444,23 +3529,23 @@
 
             return '<button class="item card-item" data-id="' + i.id + '" type="button">' +
                 '<div class="item-head">' +
-                    '<div class="cat-wrap">' +
-                        '<span class="cat-icon-box ' + kindClass + '">' + icon + '</span>' +
-                        '<span class="cat-title">' + esc(i.cat) + '</span>' +
-                    '</div>' +
-                    '<div class="badge-cluster">' +
-                        '<span class="kind-tag ' + kindClass + '">' + (isLost ? '🔴 ' : '🟢 ') + kindLabel + '</span>' +
-                        '<span class="status-tag ' + statusClass + '">' + statusLabel + '</span>' +
-                    '</div>' +
+                '<div class="cat-wrap">' +
+                '<span class="cat-icon-box ' + kindClass + '">' + icon + '</span>' +
+                '<span class="cat-title">' + esc(i.cat) + '</span>' +
+                '</div>' +
+                '<div class="badge-cluster">' +
+                '<span class="kind-tag ' + kindClass + '">' + (isLost ? '🔴 ' : '🟢 ') + kindLabel + '</span>' +
+                '<span class="status-tag ' + statusClass + '">' + statusLabel + '</span>' +
+                '</div>' +
                 '</div>' +
                 '<p class="item-desc">' + shortDesc + '</p>' +
                 '<div class="item-meta">' +
-                    '<span class="meta-pill"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + esc(i.loc) + '</span>' +
-                    '<span class="meta-pill"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + fdate(i.date) + '</span>' +
-                    '<span class="meta-pill ref-pill">#' + i.id + '</span>' +
+                '<span class="meta-pill"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>' + esc(i.loc) + '</span>' +
+                '<span class="meta-pill"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>' + fdate(i.date) + '</span>' +
+                '<span class="meta-pill ref-pill">#' + i.id + '</span>' +
                 '</div>' +
                 '<div class="item-action-hint">View details &amp; claim info <span>→</span></div>' +
-            '</button>';
+                '</button>';
         }
 
         function renderList() {
@@ -2480,13 +3565,13 @@
             $("fcount").textContent = r.length + (r.length === 1 ? " active campus listing" : " active campus listings");
             $("list").innerHTML = r.length ? r.map(function (i) { return row(i); }).join("") :
                 '<div class="empty-state-box">' +
-                    '<div class="empty-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>' +
-                    '<h3>No matching listings found</h3>' +
-                    '<p>No active items match your criteria. Try widening your search, clearing filters, or submit a report so campus staff can alert you when it turns up.</p>' +
-                    '<div class="empty-actions">' +
-                        '<button class="btn sm" onclick="$(\'clear-filters-btn\').click()">Clear All Filters</button>' +
-                        '<a href="#report" class="btn alt sm">Submit an Item Report</a>' +
-                    '</div>' +
+                '<div class="empty-icon"><svg viewBox="0 0 24 24" width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/><line x1="8" y1="11" x2="14" y2="11"/></svg></div>' +
+                '<h3>No matching listings found</h3>' +
+                '<p>No active items match your criteria. Try widening your search, clearing filters, or submit a report so campus staff can alert you when it turns up.</p>' +
+                '<div class="empty-actions">' +
+                '<button class="btn sm" onclick="$(\'clear-filters-btn\').click()">Clear All Filters</button>' +
+                '<a href="#report" class="btn alt sm">Submit an Item Report</a>' +
+                '</div>' +
                 '</div>';
 
             updateStaffStats();
@@ -2512,6 +3597,13 @@
                 navStaffBadge.textContent = p.length;
                 navStaffBadge.style.display = p.length > 0 ? "inline-flex" : "none";
             }
+
+            /* Mobile bottom nav staff badge */
+            var mobStaffBadge = $("mob-staff-badge");
+            if (mobStaffBadge) {
+                mobStaffBadge.textContent = p.length;
+                mobStaffBadge.style.display = p.length > 0 ? "inline-block" : "none";
+            }
         }
 
         function renderStaff() {
@@ -2523,20 +3615,20 @@
                 var icon = CAT_ICONS[i.cat] || CAT_ICONS["Other"];
                 return '<div class="staffrow">' +
                     '<div class="staff-info">' +
-                        '<div class="staff-header-line">' +
-                            '<span class="cat-icon-box-sm ' + (isLost ? 'kind-lost' : 'kind-found') + '">' + icon + '</span>' +
-                            '<strong>' + (isLost ? "Lost: " : "Found: ") + esc(i.cat) + '</strong>' +
-                            '<span class="ref-pill">#' + i.id + '</span>' +
-                            '<span class="status-tag st-' + i.status + '">' + SL[i.status] + '</span>' +
-                        '</div>' +
-                        '<p class="staff-desc">' + esc(i.desc) + '</p>' +
-                        '<div class="staff-meta">' +
-                            '<span>📍 ' + esc(i.loc) + '</span>' +
-                            '<span>📅 ' + fdate(i.date) + '</span>' +
-                        '</div>' +
+                    '<div class="staff-header-line">' +
+                    '<span class="cat-icon-box-sm ' + (isLost ? 'kind-lost' : 'kind-found') + '">' + icon + '</span>' +
+                    '<strong>' + (isLost ? "Lost: " : "Found: ") + esc(i.cat) + '</strong>' +
+                    '<span class="ref-pill">#' + i.id + '</span>' +
+                    '<span class="status-tag st-' + i.status + '">' + SL[i.status] + '</span>' +
+                    '</div>' +
+                    '<p class="staff-desc">' + esc(i.desc) + '</p>' +
+                    '<div class="staff-meta">' +
+                    '<span>📍 ' + esc(i.loc) + '</span>' +
+                    '<span>📅 ' + fdate(i.date) + '</span>' +
+                    '</div>' +
                     '</div>' +
                     '<div class="acts">' + acts + '</div>' +
-                '</div>';
+                    '</div>';
             }
 
             $("pend").innerHTML = p.length ? p.map(function (i) {
@@ -2597,47 +3689,47 @@
 
             $("dbody").innerHTML =
                 '<div class="dlg-top-badges">' +
-                    '<span class="kind-tag ' + (isLost ? 'kind-lost' : 'kind-found') + '">' + (isLost ? '🔴 Reported Lost' : '🟢 Reported Found') + '</span>' +
-                    '<span class="status-tag st-' + i.status + '">' + SL[i.status] + '</span>' +
-                    '<span class="ref-pill">#' + i.id + '</span>' +
+                '<span class="kind-tag ' + (isLost ? 'kind-lost' : 'kind-found') + '">' + (isLost ? '🔴 Reported Lost' : '🟢 Reported Found') + '</span>' +
+                '<span class="status-tag st-' + i.status + '">' + SL[i.status] + '</span>' +
+                '<span class="ref-pill">#' + i.id + '</span>' +
                 '</div>' +
                 '<div class="dlg-desc-box">' +
-                    '<label class="dlg-label">Item Description</label>' +
-                    '<p class="dlg-desc-text">' + esc(i.desc) + '</p>' +
+                '<label class="dlg-label">Item Description</label>' +
+                '<p class="dlg-desc-text">' + esc(i.desc) + '</p>' +
                 '</div>' +
                 '<div class="dlg-meta-grid">' +
-                    '<div class="dlg-meta-card">' +
-                        '<span class="meta-icon">📍</span>' +
-                        '<div>' +
-                            '<div class="meta-label">Location</div>' +
-                            '<div class="meta-val">' + esc(i.loc) + '</div>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="dlg-meta-card">' +
-                        '<span class="meta-icon">📅</span>' +
-                        '<div>' +
-                            '<div class="meta-label">Date Reported</div>' +
-                            '<div class="meta-val">' + fdate(i.date) + '</div>' +
-                        '</div>' +
-                    '</div>' +
-                    '<div class="dlg-meta-card">' +
-                        '<span class="meta-icon">🏷️</span>' +
-                        '<div>' +
-                            '<div class="meta-label">Reference</div>' +
-                            '<div class="meta-val font-mono">#' + i.id + '</div>' +
-                        '</div>' +
-                    '</div>' +
+                '<div class="dlg-meta-card">' +
+                '<span class="meta-icon">📍</span>' +
+                '<div>' +
+                '<div class="meta-label">Location</div>' +
+                '<div class="meta-val">' + esc(i.loc) + '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="dlg-meta-card">' +
+                '<span class="meta-icon">📅</span>' +
+                '<div>' +
+                '<div class="meta-label">Date Reported</div>' +
+                '<div class="meta-val">' + fdate(i.date) + '</div>' +
+                '</div>' +
+                '</div>' +
+                '<div class="dlg-meta-card">' +
+                '<span class="meta-icon">🏷️</span>' +
+                '<div>' +
+                '<div class="meta-label">Reference</div>' +
+                '<div class="meta-val font-mono">#' + i.id + '</div>' +
+                '</div>' +
+                '</div>' +
                 '</div>' +
                 '<div class="dlg-claim-notice ' + (isLost ? 'notice-lost' : 'notice-found') + '">' +
-                    '<h4>' + (isLost ? 'Did you find this item?' : 'Is this your item?') + '</h4>' +
-                    '<p>' + (isLost
-                        ? 'Please bring it to the Central Lost & Found Office (Student Services, Room 104) or any campus security reception desk and quote reference <strong>#' + i.id + '</strong>.'
-                        : 'Visit or contact the Lost & Found Office (Student Services, Room 104, weekdays 8:30 AM–4:30 PM) and quote reference <strong>#' + i.id + '</strong>. Staff will confirm ownership details before handing over the item.') +
-                    '</p>' +
+                '<h4>' + (isLost ? 'Did you find this item?' : 'Is this your item?') + '</h4>' +
+                '<p>' + (isLost
+                    ? 'Please bring it to the Central Lost & Found Office (Student Services, Room 104) or any campus security reception desk and quote reference <strong>#' + i.id + '</strong>.'
+                    : 'Visit or contact the Lost & Found Office (Student Services, Room 104, weekdays 8:30 AM–4:30 PM) and quote reference <strong>#' + i.id + '</strong>. Staff will confirm ownership details before handing over the item.') +
+                '</p>' +
                 '</div>' +
                 '<div class="dlg-actions">' +
-                    '<button class="btn alt sm" type="button" onclick="navigator.clipboard.writeText(\'' + i.id + '\').then(function(){ toast(\'Reference #' + i.id + ' copied!\'); }).catch(function(){ toast(\'Ref #' + i.id + '\'); });">📋 Copy Ref #' + i.id + '</button>' +
-                    '<button class="btn sm" type="button" onclick="$(\'dlg\').close()">Close</button>' +
+                '<button class="btn alt sm" type="button" onclick="navigator.clipboard.writeText(\'' + i.id + '\').then(function(){ toast(\'Reference #' + i.id + ' copied!\'); }).catch(function(){ toast(\'Ref #' + i.id + '\'); });">📋 Copy Ref #' + i.id + '</button>' +
+                '<button class="btn sm" type="button" onclick="$(\'dlg\').close()">Close</button>' +
                 '</div>';
 
             $("dlg").showModal();
@@ -2695,7 +3787,13 @@
             [].forEach.call(document.querySelectorAll(".view"), function (v) {
                 v.classList.toggle("on", v.id === "v-" + h);
             });
-            [].forEach.call(document.querySelectorAll("nav a"), function (a) {
+            /* Desktop top nav */
+            [].forEach.call(document.querySelectorAll("header nav a"), function (a) {
+                if (a.dataset.v === h) a.setAttribute("aria-current", "page");
+                else a.removeAttribute("aria-current");
+            });
+            /* Mobile bottom nav */
+            [].forEach.call(document.querySelectorAll(".mob-nav-item"), function (a) {
                 if (a.dataset.v === h) a.setAttribute("aria-current", "page");
                 else a.removeAttribute("aria-current");
             });
