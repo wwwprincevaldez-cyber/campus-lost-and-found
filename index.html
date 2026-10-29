@@ -1,199 +1,672 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Campus Lost & Found</title>
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Public+Sans:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f2f5fa;--surface:#fff;--ink:#14181f;--muted:#566175;--line:#d5dbe6;--blue:#2455d6;--blue-ink:#fff;--tag:#ffd23f;--open:#2455d6;--claimed:#b26a00;--returned:#17803d;--pend:#7a5af8;color-scheme:light;
-box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0f141c;--surface:#18202c;--ink:#eaeef5;--muted:#9aa6ba;--line:#2b3546;--blue:#7ba0ff;--blue-ink:#0a1430;--tag:#ffd23f;--open:#7ba0ff;--claimed:#f0a84a;--returned:#52d080;--pend:#b3a1ff;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0f141c;--surface:#18202c;--ink:#eaeef5;--muted:#9aa6ba;--line:#2b3546;--blue:#7ba0ff;--blue-ink:#0a1430;--tag:#ffd23f;--open:#7ba0ff;--claimed:#f0a84a;--returned:#52d080;--pend:#b3a1ff;color-scheme:dark}
-html{scroll-padding-top:env(safe-area-inset-top,0px)}
-*,*::before,*::after{box-sizing:inherit}
-body{margin:0;background:var(--bg);color:var(--ink);font:400 1.0625rem/1.55 "Public Sans",system-ui,sans-serif}
-body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);background:var(--bg);z-index:10}
-h1,h2,h3{font-family:"Familjen Grotesk","Public Sans",sans-serif;margin:0;line-height:1.1;letter-spacing:-.01em}
-.wrap{max-width:980px;margin:0 auto;padding:0 18px}
-:focus-visible{outline:3px solid var(--tag);outline-offset:2px;box-shadow:0 0 0 5px var(--ink)}
-header{position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);border-bottom:1px solid var(--line);z-index:5}
-.bar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding:10px 0}
-.brand{font:700 1.35rem "Familjen Grotesk",sans-serif;display:flex;align-items:center;gap:10px}
-.brand i{width:30px;height:22px;background:var(--tag);border-radius:4px 10px 10px 4px;position:relative;display:inline-block}
-.brand i::after{content:"";position:absolute;left:5px;top:50%;width:6px;height:6px;margin-top:-3px;border-radius:50%;background:var(--bg)}
-nav{display:flex;gap:6px}
-nav a{padding:8px 14px;border-radius:99px;text-decoration:none;font-weight:600;color:var(--muted)}
-nav a[aria-current="page"]{background:var(--ink);color:var(--bg)}
-.btn{font:600 1rem "Public Sans",sans-serif;border:0;border-radius:10px;padding:10px 16px;background:var(--blue);color:var(--blue-ink);cursor:pointer}
-.btn.alt{background:transparent;color:var(--ink);box-shadow:inset 0 0 0 2px var(--line)}
-.btn.sm{padding:6px 12px;font-size:.9rem}
-.view{display:none;padding:28px 0 60px}.view.on{display:block}
-h1{font-size:clamp(2rem,5vw,3rem);margin-bottom:8px}
-.lead{color:var(--muted);max-width:60ch;margin:0 0 22px}
-.filters{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:10px;margin-bottom:16px}
-@media(max-width:720px){.filters{grid-template-columns:1fr 1fr}.filters .s{grid-column:1/-1}}
-label{font-weight:600;font-size:.92rem;display:block;margin-bottom:4px}
-input,select,textarea{width:100%;font:inherit;padding:10px 12px;border-radius:9px;border:1.5px solid var(--line);background:var(--surface);color:var(--ink)}
-textarea{min-height:100px;resize:vertical}
-.list{display:grid;gap:12px}
-.item{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:14px 16px;text-align:left;font:inherit;color:inherit;cursor:pointer;width:100%}
-.item:hover{border-color:var(--ink)}
-.kind{width:62px;height:44px;display:grid;place-items:center;background:var(--tag);color:#14181f;font-weight:700;border-radius:6px 14px 14px 6px;position:relative;font-size:.85rem}
-.kind.lost{background:var(--surface);box-shadow:inset 0 0 0 2px var(--ink);color:var(--ink)}
-.item b{font:700 1.1rem "Familjen Grotesk",sans-serif;display:block}
-.meta{color:var(--muted);font-size:.93rem}
-.st{font-weight:700;font-size:.85rem;padding:4px 10px;border-radius:99px;border:2px solid currentColor;white-space:nowrap}
-.st.open{color:var(--open)}.st.claimed{color:var(--claimed)}.st.returned{color:var(--returned)}.st.pending{color:var(--pend)}
-.empty{padding:30px;border:2px dashed var(--line);border-radius:14px;text-align:center;color:var(--muted)}
-form.card,.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:22px;max-width:640px}
-.f{margin-bottom:14px}
-.seg{display:flex;gap:10px}
-.seg label{flex:1;margin:0;border:2px solid var(--line);border-radius:10px;padding:10px;text-align:center;cursor:pointer;font-weight:600}
-.seg input{position:absolute;opacity:0;width:1px;height:1px}
-.seg label:has(input:checked){border-color:var(--blue);background:color-mix(in srgb,var(--blue) 14%,transparent)}
-.seg label:has(input:focus-visible){outline:3px solid var(--tag)}
-.err{color:#d92d20;font-weight:600;min-height:1.4em;margin:0 0 8px}
-@media(prefers-color-scheme:dark){.err{color:#ff8a7a}}
-.note{background:color-mix(in srgb,var(--tag) 30%,transparent);border-radius:10px;padding:10px 14px;font-size:.95rem;margin-bottom:16px}
-.staffrow{display:flex;gap:8px;align-items:center;justify-content:space-between;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px}
-.staffrow>div:first-child{flex:1 1 240px}
-.acts{display:flex;gap:8px;flex-wrap:wrap}
-h2{font-size:1.4rem;margin:26px 0 10px}
-.tabs-note{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-bottom:14px}
-dialog{border:0;border-radius:16px;padding:0;max-width:520px;width:calc(100% - 28px);background:var(--surface);color:var(--ink)}
-dialog::backdrop{background:rgba(5,10,20,.6)}
-.dh{display:flex;justify-content:space-between;gap:10px;padding:18px 20px 0}
-.db{padding:12px 20px 20px;display:grid;gap:12px}
-.x{background:none;border:0;color:var(--ink);font-size:1.7rem;cursor:pointer;line-height:1}
-dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:6px 14px}dt{color:var(--muted)}dd{margin:0;font-weight:500}
-.toast{position:fixed;left:50%;bottom:calc(18px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 18px;border-radius:10px;font-weight:600;z-index:30}
-.toast[hidden]{display:none}
-footer{color:var(--muted);font-size:.92rem;padding:0 0 40px}
-</style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Campus Lost & Found</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@500;700&family=Public+Sans:wght@400;500;600&display=swap"
+        rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f2f5fa;
+            --surface: #fff;
+            --ink: #14181f;
+            --muted: #566175;
+            --line: #d5dbe6;
+            --blue: #2455d6;
+            --blue-ink: #fff;
+            --tag: #ffd23f;
+            --open: #2455d6;
+            --claimed: #b26a00;
+            --returned: #17803d;
+            --pend: #7a5af8;
+            color-scheme: light;
+            box-sizing: border-box;
+            padding-top: env(safe-area-inset-top, 0px);
+            padding-bottom: env(safe-area-inset-bottom, 0px)
+        }
+
+        @media (prefers-color-scheme:dark) {
+            :root:not([data-theme="light"]) {
+                --bg: #0f141c;
+                --surface: #18202c;
+                --ink: #eaeef5;
+                --muted: #9aa6ba;
+                --line: #2b3546;
+                --blue: #7ba0ff;
+                --blue-ink: #0a1430;
+                --tag: #ffd23f;
+                --open: #7ba0ff;
+                --claimed: #f0a84a;
+                --returned: #52d080;
+                --pend: #b3a1ff;
+                color-scheme: dark
+            }
+        }
+
+        :root[data-theme="dark"] {
+            --bg: #0f141c;
+            --surface: #18202c;
+            --ink: #eaeef5;
+            --muted: #9aa6ba;
+            --line: #2b3546;
+            --blue: #7ba0ff;
+            --blue-ink: #0a1430;
+            --tag: #ffd23f;
+            --open: #7ba0ff;
+            --claimed: #f0a84a;
+            --returned: #52d080;
+            --pend: #b3a1ff;
+            color-scheme: dark
+        }
+
+        html {
+            scroll-padding-top: env(safe-area-inset-top, 0px)
+        }
+
+        *,
+        *::before,
+        *::after {
+            box-sizing: inherit
+        }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--ink);
+            font: 400 1.0625rem/1.55 "Public Sans", system-ui, sans-serif
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0 0 auto;
+            height: env(safe-area-inset-top, 0px);
+            background: var(--bg);
+            z-index: 10
+        }
+
+        h1,
+        h2,
+        h3 {
+            font-family: "Familjen Grotesk", "Public Sans", sans-serif;
+            margin: 0;
+            line-height: 1.1;
+            letter-spacing: -.01em
+        }
+
+        .wrap {
+            max-width: 980px;
+            margin: 0 auto;
+            padding: 0 18px
+        }
+
+        :focus-visible {
+            outline: 3px solid var(--tag);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 5px var(--ink)
+        }
+
+        header {
+            position: sticky;
+            top: env(safe-area-inset-top, 0px);
+            background: var(--bg);
+            border-bottom: 1px solid var(--line);
+            z-index: 5
+        }
+
+        .bar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            flex-wrap: wrap;
+            padding: 10px 0
+        }
+
+        .brand {
+            font: 700 1.35rem "Familjen Grotesk", sans-serif;
+            display: flex;
+            align-items: center;
+            gap: 10px
+        }
+
+        .brand i {
+            width: 30px;
+            height: 22px;
+            background: var(--tag);
+            border-radius: 4px 10px 10px 4px;
+            position: relative;
+            display: inline-block
+        }
+
+        .brand i::after {
+            content: "";
+            position: absolute;
+            left: 5px;
+            top: 50%;
+            width: 6px;
+            height: 6px;
+            margin-top: -3px;
+            border-radius: 50%;
+            background: var(--bg)
+        }
+
+        nav {
+            display: flex;
+            gap: 6px
+        }
+
+        nav a {
+            padding: 8px 14px;
+            border-radius: 99px;
+            text-decoration: none;
+            font-weight: 600;
+            color: var(--muted)
+        }
+
+        nav a[aria-current="page"] {
+            background: var(--ink);
+            color: var(--bg)
+        }
+
+        .btn {
+            font: 600 1rem "Public Sans", sans-serif;
+            border: 0;
+            border-radius: 10px;
+            padding: 10px 16px;
+            background: var(--blue);
+            color: var(--blue-ink);
+            cursor: pointer
+        }
+
+        .btn.alt {
+            background: transparent;
+            color: var(--ink);
+            box-shadow: inset 0 0 0 2px var(--line)
+        }
+
+        .btn.sm {
+            padding: 6px 12px;
+            font-size: .9rem
+        }
+
+        .view {
+            display: none;
+            padding: 28px 0 60px
+        }
+
+        .view.on {
+            display: block
+        }
+
+        h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+            margin-bottom: 8px
+        }
+
+        .lead {
+            color: var(--muted);
+            max-width: 60ch;
+            margin: 0 0 22px
+        }
+
+        .filters {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 16px
+        }
+
+        @media(max-width:720px) {
+            .filters {
+                grid-template-columns: 1fr 1fr
+            }
+
+            .filters .s {
+                grid-column: 1/-1
+            }
+        }
+
+        label {
+            font-weight: 600;
+            font-size: .92rem;
+            display: block;
+            margin-bottom: 4px
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+            font: inherit;
+            padding: 10px 12px;
+            border-radius: 9px;
+            border: 1.5px solid var(--line);
+            background: var(--surface);
+            color: var(--ink)
+        }
+
+        textarea {
+            min-height: 100px;
+            resize: vertical
+        }
+
+        .list {
+            display: grid;
+            gap: 12px
+        }
+
+        .item {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 14px;
+            align-items: center;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 14px;
+            padding: 14px 16px;
+            text-align: left;
+            font: inherit;
+            color: inherit;
+            cursor: pointer;
+            width: 100%
+        }
+
+        .item:hover {
+            border-color: var(--ink)
+        }
+
+        .kind {
+            width: 62px;
+            height: 44px;
+            display: grid;
+            place-items: center;
+            background: var(--tag);
+            color: #14181f;
+            font-weight: 700;
+            border-radius: 6px 14px 14px 6px;
+            position: relative;
+            font-size: .85rem
+        }
+
+        .kind.lost {
+            background: var(--surface);
+            box-shadow: inset 0 0 0 2px var(--ink);
+            color: var(--ink)
+        }
+
+        .item b {
+            font: 700 1.1rem "Familjen Grotesk", sans-serif;
+            display: block
+        }
+
+        .meta {
+            color: var(--muted);
+            font-size: .93rem
+        }
+
+        .st {
+            font-weight: 700;
+            font-size: .85rem;
+            padding: 4px 10px;
+            border-radius: 99px;
+            border: 2px solid currentColor;
+            white-space: nowrap
+        }
+
+        .st.open {
+            color: var(--open)
+        }
+
+        .st.claimed {
+            color: var(--claimed)
+        }
+
+        .st.returned {
+            color: var(--returned)
+        }
+
+        .st.pending {
+            color: var(--pend)
+        }
+
+        .empty {
+            padding: 30px;
+            border: 2px dashed var(--line);
+            border-radius: 14px;
+            text-align: center;
+            color: var(--muted)
+        }
+
+        form.card,
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 16px;
+            padding: 22px;
+            max-width: 640px
+        }
+
+        .f {
+            margin-bottom: 14px
+        }
+
+        .seg {
+            display: flex;
+            gap: 10px
+        }
+
+        .seg label {
+            flex: 1;
+            margin: 0;
+            border: 2px solid var(--line);
+            border-radius: 10px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 600
+        }
+
+        .seg input {
+            position: absolute;
+            opacity: 0;
+            width: 1px;
+            height: 1px
+        }
+
+        .seg label:has(input:checked) {
+            border-color: var(--blue);
+            background: color-mix(in srgb, var(--blue) 14%, transparent)
+        }
+
+        .seg label:has(input:focus-visible) {
+            outline: 3px solid var(--tag)
+        }
+
+        .err {
+            color: #d92d20;
+            font-weight: 600;
+            min-height: 1.4em;
+            margin: 0 0 8px
+        }
+
+        @media(prefers-color-scheme:dark) {
+            .err {
+                color: #ff8a7a
+            }
+        }
+
+        .note {
+            background: color-mix(in srgb, var(--tag) 30%, transparent);
+            border-radius: 10px;
+            padding: 10px 14px;
+            font-size: .95rem;
+            margin-bottom: 16px
+        }
+
+        .staffrow {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+            padding: 12px 14px
+        }
+
+        .staffrow>div:first-child {
+            flex: 1 1 240px
+        }
+
+        .acts {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap
+        }
+
+        h2 {
+            font-size: 1.4rem;
+            margin: 26px 0 10px
+        }
+
+        .tabs-note {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+            margin-bottom: 14px
+        }
+
+        dialog {
+            border: 0;
+            border-radius: 16px;
+            padding: 0;
+            max-width: 520px;
+            width: calc(100% - 28px);
+            background: var(--surface);
+            color: var(--ink)
+        }
+
+        dialog::backdrop {
+            background: rgba(5, 10, 20, .6)
+        }
+
+        .dh {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 18px 20px 0
+        }
+
+        .db {
+            padding: 12px 20px 20px;
+            display: grid;
+            gap: 12px
+        }
+
+        .x {
+            background: none;
+            border: 0;
+            color: var(--ink);
+            font-size: 1.7rem;
+            cursor: pointer;
+            line-height: 1
+        }
+
+        dl {
+            margin: 0;
+            display: grid;
+            grid-template-columns: auto 1fr;
+            gap: 6px 14px
+        }
+
+        dt {
+            color: var(--muted)
+        }
+
+        dd {
+            margin: 0;
+            font-weight: 500
+        }
+
+        .toast {
+            position: fixed;
+            left: 50%;
+            bottom: calc(18px + env(safe-area-inset-bottom, 0px));
+            transform: translateX(-50%);
+            background: var(--ink);
+            color: var(--bg);
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+            z-index: 30
+        }
+
+        .toast[hidden] {
+            display: none
+        }
+
+        footer {
+            color: var(--muted);
+            font-size: .92rem;
+            padding: 0 0 40px
+        }
+    </style>
 </head>
+
 <body>
-<header><div class="wrap bar">
-<div class="brand"><i></i>Campus Lost & Found</div>
-<nav aria-label="Main"><a href="#listings" data-v="listings">Browse</a><a href="#report" data-v="report">Report an item</a><a href="#staff" data-v="staff">Staff</a></nav>
-</div></header>
+    <header>
+        <div class="wrap bar">
+            <div class="brand"><i></i>Campus Lost & Found</div>
+            <nav aria-label="Main"><a href="#listings" data-v="listings">Browse</a><a href="#report"
+                    data-v="report">Report an item</a><a href="#staff" data-v="staff">Staff</a></nav>
+        </div>
+    </header>
 
-<main class="wrap">
-<section class="view" id="v-listings">
-<h1>Lost something? Found something?</h1>
-<p class="lead">Search current reports before you ask around. If you spot your item, follow the contact steps on its page.</p>
-<div class="filters">
-<div class="s"><label for="fq">Search</label><input id="fq" type="search" placeholder="Try “bottle” or “library”"></div>
-<div><label for="ft">Type</label><select id="ft"><option value="">Lost and found</option><option value="lost">Lost</option><option value="found">Found</option></select></div>
-<div><label for="fc">Category</label><select id="fc"></select></div>
-<div><label for="fl">Location</label><select id="fl"></select></div>
-</div>
-<p class="meta" id="fcount" aria-live="polite"></p>
-<div class="list" id="list"></div>
-</section>
+    <main class="wrap">
+        <section class="view" id="v-listings">
+            <h1>Lost something? Found something?</h1>
+            <p class="lead">Search current reports before you ask around. If you spot your item, follow the contact
+                steps on its page.</p>
+            <div class="filters">
+                <div class="s"><label for="fq">Search</label><input id="fq" type="search"
+                        placeholder="Try “bottle” or “library”"></div>
+                <div><label for="ft">Type</label><select id="ft">
+                        <option value="">Lost and found</option>
+                        <option value="lost">Lost</option>
+                        <option value="found">Found</option>
+                    </select></div>
+                <div><label for="fc">Category</label><select id="fc"></select></div>
+                <div><label for="fl">Location</label><select id="fl"></select></div>
+            </div>
+            <p class="meta" id="fcount" aria-live="polite"></p>
+            <div class="list" id="list"></div>
+        </section>
 
-<section class="view" id="v-report">
-<h1>Report an item</h1>
-<p class="lead">Tell us what was lost or found. Staff review every report before it appears in the listings.</p>
-<form class="card" id="rf" novalidate>
-<div class="note">Don’t include ID numbers, phone numbers, or email addresses. The office will connect you with the owner or finder.</div>
-<div class="f"><div class="seg" role="radiogroup" aria-label="Report type">
-<label><input type="radio" name="kind" value="lost" checked>I lost something</label>
-<label><input type="radio" name="kind" value="found">I found something</label></div></div>
-<div class="f"><label for="rc">Category</label><select id="rc"></select></div>
-<div class="f"><label for="rd">Description</label><textarea id="rd" maxlength="240" placeholder="Color, brand, size, and any marks that help identify it"></textarea></div>
-<div class="f"><label for="rdt">Date</label><input id="rdt" type="date"></div>
-<div class="f"><label for="rl">Location</label><select id="rl"></select></div>
-<p class="err" id="rerr" role="alert"></p>
-<button class="btn" type="submit">Submit report</button>
-</form>
-</section>
+        <section class="view" id="v-report">
+            <h1>Report an item</h1>
+            <p class="lead">Tell us what was lost or found. Staff review every report before it appears in the listings.
+            </p>
+            <form class="card" id="rf" novalidate>
+                <div class="note">Don’t include ID numbers, phone numbers, or email addresses. The office will connect
+                    you with the owner or finder.</div>
+                <div class="f">
+                    <div class="seg" role="radiogroup" aria-label="Report type">
+                        <label><input type="radio" name="kind" value="lost" checked>I lost something</label>
+                        <label><input type="radio" name="kind" value="found">I found something</label>
+                    </div>
+                </div>
+                <div class="f"><label for="rc">Category</label><select id="rc"></select></div>
+                <div class="f"><label for="rd">Description</label><textarea id="rd" maxlength="240"
+                        placeholder="Color, brand, size, and any marks that help identify it"></textarea></div>
+                <div class="f"><label for="rdt">Date</label><input id="rdt" type="date"></div>
+                <div class="f"><label for="rl">Location</label><select id="rl"></select></div>
+                <p class="err" id="rerr" role="alert"></p>
+                <button class="btn" type="submit">Submit report</button>
+            </form>
+        </section>
 
-<section class="view" id="v-staff">
-<h1>Staff dashboard</h1>
-<p class="lead">Review new reports and update item status. This demo simulates the staff role: a real version would require staff sign-in.</p>
-<div class="tabs-note"><button class="btn alt sm" id="reset" type="button">Reset sample data</button><span class="meta" id="storeinfo"></span></div>
-<h2>Waiting for review</h2><div class="list" id="pend"></div>
-<h2>Active listings</h2><div class="list" id="act"></div>
-</section>
-</main>
-<footer class="wrap">Prototype with sample data. Reports are saved only in this browser, so they aren’t shared between devices.</footer>
+        <section class="view" id="v-staff">
+            <h1>Staff dashboard</h1>
+            <p class="lead">Review new reports and update item status. This demo simulates the staff role: a real
+                version would require staff sign-in.</p>
+            <div class="tabs-note"><button class="btn alt sm" id="reset" type="button">Reset sample data</button><span
+                    class="meta" id="storeinfo"></span></div>
+            <h2>Waiting for review</h2>
+            <div class="list" id="pend"></div>
+            <h2>Active listings</h2>
+            <div class="list" id="act"></div>
+        </section>
+    </main>
+    <footer class="wrap">Prototype with sample data. Reports are saved only in this browser, so they aren’t shared
+        between devices.</footer>
 
-<dialog id="dlg" aria-labelledby="dtt"><div class="dh"><h3 id="dtt"></h3><button class="x" id="dx" aria-label="Close">×</button></div><div class="db" id="dbody"></div></dialog>
-<div class="toast" id="toast" role="status" hidden></div>
+    <dialog id="dlg" aria-labelledby="dtt">
+        <div class="dh">
+            <h3 id="dtt"></h3><button class="x" id="dx" aria-label="Close">×</button>
+        </div>
+        <div class="db" id="dbody"></div>
+    </dialog>
+    <div class="toast" id="toast" role="status" hidden></div>
 
-<script>
-var KEY="lf-prototype-v1",CATS=["Bottle","Bag","Electronics","Clothing","Keys","Books and notes","Other"],LOCS=["Library entrance","Cafeteria","Gym","Main building","Parking area","Other"];
-var SAMPLE=[
-{id:"L001",kind:"found",cat:"Bottle",desc:"Blue insulated water bottle with a small dent near the base.",date:"2026-10-24",loc:"Library entrance",status:"open"},
-{id:"L002",kind:"lost",cat:"Electronics",desc:"Black wireless earbuds in a white charging case.",date:"2026-10-23",loc:"Cafeteria",status:"open"},
-{id:"L003",kind:"found",cat:"Keys",desc:"Set of three keys on a green carabiner.",date:"2026-10-22",loc:"Gym",status:"claimed"},
-{id:"L004",kind:"lost",cat:"Bag",desc:"Gray backpack with a red zipper pull and a keychain shaped like a fox.",date:"2026-10-21",loc:"Main building",status:"open"},
-{id:"L005",kind:"found",cat:"Clothing",desc:"Navy hoodie, size medium, left on a bench.",date:"2026-10-20",loc:"Parking area",status:"returned"},
-{id:"L006",kind:"found",cat:"Books and notes",desc:"Spiral notebook with a yellow cover and chemistry notes.",date:"2026-10-27",loc:"Library entrance",status:"pending"}];
-var mem=null,persist=true;
-function load(){try{var s=localStorage.getItem(KEY);if(s)return JSON.parse(s)}catch(e){persist=false}return mem||SAMPLE.map(function(x){return Object.assign({},x)})}
-var data=load();
-function save(){mem=data;try{localStorage.setItem(KEY,JSON.stringify(data))}catch(e){persist=false}}
-function $(i){return document.getElementById(i)}
-function toast(m){var t=$("toast");t.textContent=m;t.hidden=false;clearTimeout(toast.h);toast.h=setTimeout(function(){t.hidden=true},2600)}
-function esc(s){var d=document.createElement("div");d.textContent=s;return d.innerHTML}
-function fdate(d){var p=d.split("-");return new Date(+p[0],+p[1]-1,+p[2]).toLocaleDateString("en",{day:"numeric",month:"short"})}
-var SL={open:"Open",claimed:"Claimed",returned:"Returned",pending:"Pending review"};
-function opts(id,arr,first){$(id).innerHTML=(first?'<option value="">'+first+'</option>':"")+arr.map(function(a){return"<option>"+a+"</option>"}).join("")}
-opts("fc",CATS,"All categories");opts("fl",LOCS,"All locations");opts("rc",CATS);opts("rl",LOCS);
-$("rdt").value=new Date().toISOString().slice(0,10);
+    <script>
+        var KEY = "lf-prototype-v1", CATS = ["Bottle", "Bag", "Electronics", "Clothing", "Keys", "Books and notes", "Other"], LOCS = ["Library entrance", "Cafeteria", "Gym", "Main building", "Parking area", "Other"];
+        var SAMPLE = [
+            { id: "L001", kind: "found", cat: "Bottle", desc: "Blue insulated water bottle with a small dent near the base.", date: "2026-10-24", loc: "Library entrance", status: "open" },
+            { id: "L002", kind: "lost", cat: "Electronics", desc: "Black wireless earbuds in a white charging case.", date: "2026-10-23", loc: "Cafeteria", status: "open" },
+            { id: "L003", kind: "found", cat: "Keys", desc: "Set of three keys on a green carabiner.", date: "2026-10-22", loc: "Gym", status: "claimed" },
+            { id: "L004", kind: "lost", cat: "Bag", desc: "Gray backpack with a red zipper pull and a keychain shaped like a fox.", date: "2026-10-21", loc: "Main building", status: "open" },
+            { id: "L005", kind: "found", cat: "Clothing", desc: "Navy hoodie, size medium, left on a bench.", date: "2026-10-20", loc: "Parking area", status: "returned" },
+            { id: "L006", kind: "found", cat: "Books and notes", desc: "Spiral notebook with a yellow cover and chemistry notes.", date: "2026-10-27", loc: "Library entrance", status: "pending" }];
+        var mem = null, persist = true;
+        function load() { try { var s = localStorage.getItem(KEY); if (s) return JSON.parse(s) } catch (e) { persist = false } return mem || SAMPLE.map(function (x) { return Object.assign({}, x) }) }
+        var data = load();
+        function save() { mem = data; try { localStorage.setItem(KEY, JSON.stringify(data)) } catch (e) { persist = false } }
+        function $(i) { return document.getElementById(i) }
+        function toast(m) { var t = $("toast"); t.textContent = m; t.hidden = false; clearTimeout(toast.h); toast.h = setTimeout(function () { t.hidden = true }, 2600) }
+        function esc(s) { var d = document.createElement("div"); d.textContent = s; return d.innerHTML }
+        function fdate(d) { var p = d.split("-"); return new Date(+p[0], +p[1] - 1, +p[2]).toLocaleDateString("en", { day: "numeric", month: "short" }) }
+        var SL = { open: "Open", claimed: "Claimed", returned: "Returned", pending: "Pending review" };
+        function opts(id, arr, first) { $(id).innerHTML = (first ? '<option value="">' + first + '</option>' : "") + arr.map(function (a) { return "<option>" + a + "</option>" }).join("") }
+        opts("fc", CATS, "All categories"); opts("fl", LOCS, "All locations"); opts("rc", CATS); opts("rl", LOCS);
+        $("rdt").value = new Date().toISOString().slice(0, 10);
 
-function row(i,staff){
- return '<button class="item" data-id="'+i.id+'"><span class="kind '+i.kind+'">'+(i.kind==="lost"?"Lost":"Found")+'</span><span><b>'+esc(i.cat)+'</b><span class="meta">'+esc(i.desc.length>90?i.desc.slice(0,90)+"…":i.desc)+'<br>'+esc(i.loc)+' · '+fdate(i.date)+'</span></span><span class="st '+i.status+'">'+SL[i.status]+'</span></button>';
-}
-function renderList(){
- var q=$("fq").value.trim().toLowerCase(),t=$("ft").value,c=$("fc").value,l=$("fl").value;
- var r=data.filter(function(i){return i.status!=="pending"&&i.status!=="returned"&&(!t||i.kind===t)&&(!c||i.cat===c)&&(!l||i.loc===l)&&(!q||(i.desc+" "+i.cat+" "+i.loc).toLowerCase().indexOf(q)>-1)});
- $("fcount").textContent=r.length+(r.length===1?" active listing":" active listings");
- $("list").innerHTML=r.length?r.map(function(i){return row(i)}).join(""):'<div class="empty">No matching listings. Try fewer filters, or report the item so staff can match it later.</div>';
-}
-function renderStaff(){
- var p=data.filter(function(i){return i.status==="pending"}),a=data.filter(function(i){return i.status==="open"||i.status==="claimed"});
- function sr(i,acts){return'<div class="staffrow"><div><b>'+(i.kind==="lost"?"Lost":"Found")+': '+esc(i.cat)+'</b> <span class="st '+i.status+'">'+SL[i.status]+'</span><div class="meta">'+esc(i.desc)+' · '+esc(i.loc)+' · '+fdate(i.date)+'</div></div><div class="acts">'+acts+'</div></div>'}
- $("pend").innerHTML=p.length?p.map(function(i){return sr(i,'<button class="btn sm" data-set="open" data-id="'+i.id+'">Approve</button><button class="btn alt sm" data-del="1" data-id="'+i.id+'">Reject</button>')}).join(""):'<div class="empty">No reports are waiting.</div>';
- $("act").innerHTML=a.length?a.map(function(i){return sr(i,(i.status==="open"?'<button class="btn alt sm" data-set="claimed" data-id="'+i.id+'">Mark claimed</button>':'')+'<button class="btn sm" data-set="returned" data-id="'+i.id+'">Mark returned</button>')}).join(""):'<div class="empty">No active listings.</div>';
- $("storeinfo").textContent=persist?"Saved in this browser.":"Browser storage is unavailable, so changes last until you close the page.";
-}
-["fq","ft","fc","fl"].forEach(function(i){$(i).addEventListener("input",renderList)});
-document.addEventListener("click",function(e){
- var b=e.target.closest("[data-set],[data-del]");
- if(b){var id=b.dataset.id;if(b.dataset.del){data=data.filter(function(i){return i.id!==id});toast("Report rejected and removed")}else{data.forEach(function(i){if(i.id===id)i.status=b.dataset.set});toast("Status updated to "+SL[b.dataset.set].toLowerCase())}save();renderStaff();renderList();return}
- var it=e.target.closest(".item");if(it&&it.closest("#list"))openItem(it.dataset.id);
-});
-$("reset").onclick=function(){data=SAMPLE.map(function(x){return Object.assign({},x)});save();renderStaff();renderList();toast("Sample data restored")};
-function openItem(id){
- var i=data.filter(function(x){return x.id===id})[0];if(!i)return;
- $("dtt").textContent=(i.kind==="lost"?"Lost: ":"Found: ")+i.cat;
- $("dbody").innerHTML='<span class="st '+i.status+'" style="justify-self:start">'+SL[i.status]+'</span><p style="margin:0">'+esc(i.desc)+'</p><dl><dt>Reference</dt><dd>'+i.id+'</dd><dt>Location</dt><dd>'+esc(i.loc)+'</dd><dt>Date</dt><dd>'+fdate(i.date)+'</dd></dl><div class="note" style="margin:0"><b>'+(i.kind==="found"?"Is this yours?":"Did you find this?")+'</b> Visit or call the Lost & Found Office (sample: Student Services, Room 104, weekdays 9:00–16:00) and quote reference '+i.id+'. Staff will confirm details before the item is handed over.</div>';
- $("dlg").showModal();
-}
-$("dx").onclick=function(){$("dlg").close()};
-$("dlg").addEventListener("click",function(e){if(e.target===$("dlg"))$("dlg").close()});
+        function row(i, staff) {
+            return '<button class="item" data-id="' + i.id + '"><span class="kind ' + i.kind + '">' + (i.kind === "lost" ? "Lost" : "Found") + '</span><span><b>' + esc(i.cat) + '</b><span class="meta">' + esc(i.desc.length > 90 ? i.desc.slice(0, 90) + "…" : i.desc) + '<br>' + esc(i.loc) + ' · ' + fdate(i.date) + '</span></span><span class="st ' + i.status + '">' + SL[i.status] + '</span></button>';
+        }
+        function renderList() {
+            var q = $("fq").value.trim().toLowerCase(), t = $("ft").value, c = $("fc").value, l = $("fl").value;
+            var r = data.filter(function (i) { return i.status !== "pending" && i.status !== "returned" && (!t || i.kind === t) && (!c || i.cat === c) && (!l || i.loc === l) && (!q || (i.desc + " " + i.cat + " " + i.loc).toLowerCase().indexOf(q) > -1) });
+            $("fcount").textContent = r.length + (r.length === 1 ? " active listing" : " active listings");
+            $("list").innerHTML = r.length ? r.map(function (i) { return row(i) }).join("") : '<div class="empty">No matching listings. Try fewer filters, or report the item so staff can match it later.</div>';
+        }
+        function renderStaff() {
+            var p = data.filter(function (i) { return i.status === "pending" }), a = data.filter(function (i) { return i.status === "open" || i.status === "claimed" });
+            function sr(i, acts) { return '<div class="staffrow"><div><b>' + (i.kind === "lost" ? "Lost" : "Found") + ': ' + esc(i.cat) + '</b> <span class="st ' + i.status + '">' + SL[i.status] + '</span><div class="meta">' + esc(i.desc) + ' · ' + esc(i.loc) + ' · ' + fdate(i.date) + '</div></div><div class="acts">' + acts + '</div></div>' }
+            $("pend").innerHTML = p.length ? p.map(function (i) { return sr(i, '<button class="btn sm" data-set="open" data-id="' + i.id + '">Approve</button><button class="btn alt sm" data-del="1" data-id="' + i.id + '">Reject</button>') }).join("") : '<div class="empty">No reports are waiting.</div>';
+            $("act").innerHTML = a.length ? a.map(function (i) { return sr(i, (i.status === "open" ? '<button class="btn alt sm" data-set="claimed" data-id="' + i.id + '">Mark claimed</button>' : '') + '<button class="btn sm" data-set="returned" data-id="' + i.id + '">Mark returned</button>') }).join("") : '<div class="empty">No active listings.</div>';
+            $("storeinfo").textContent = persist ? "Saved in this browser." : "Browser storage is unavailable, so changes last until you close the page.";
+        }
+        ["fq", "ft", "fc", "fl"].forEach(function (i) { $(i).addEventListener("input", renderList) });
+        document.addEventListener("click", function (e) {
+            var b = e.target.closest("[data-set],[data-del]");
+            if (b) { var id = b.dataset.id; if (b.dataset.del) { data = data.filter(function (i) { return i.id !== id }); toast("Report rejected and removed") } else { data.forEach(function (i) { if (i.id === id) i.status = b.dataset.set }); toast("Status updated to " + SL[b.dataset.set].toLowerCase()) } save(); renderStaff(); renderList(); return }
+            var it = e.target.closest(".item"); if (it && it.closest("#list")) openItem(it.dataset.id);
+        });
+        $("reset").onclick = function () { data = SAMPLE.map(function (x) { return Object.assign({}, x) }); save(); renderStaff(); renderList(); toast("Sample data restored") };
+        function openItem(id) {
+            var i = data.filter(function (x) { return x.id === id })[0]; if (!i) return;
+            $("dtt").textContent = (i.kind === "lost" ? "Lost: " : "Found: ") + i.cat;
+            $("dbody").innerHTML = '<span class="st ' + i.status + '" style="justify-self:start">' + SL[i.status] + '</span><p style="margin:0">' + esc(i.desc) + '</p><dl><dt>Reference</dt><dd>' + i.id + '</dd><dt>Location</dt><dd>' + esc(i.loc) + '</dd><dt>Date</dt><dd>' + fdate(i.date) + '</dd></dl><div class="note" style="margin:0"><b>' + (i.kind === "found" ? "Is this yours?" : "Did you find this?") + '</b> Visit or call the Lost & Found Office (sample: Student Services, Room 104, weekdays 9:00–16:00) and quote reference ' + i.id + '. Staff will confirm details before the item is handed over.</div>';
+            $("dlg").showModal();
+        }
+        $("dx").onclick = function () { $("dlg").close() };
+        $("dlg").addEventListener("click", function (e) { if (e.target === $("dlg")) $("dlg").close() });
 
-$("rf").onsubmit=function(e){
- e.preventDefault();var d=$("rd").value.trim(),err=$("rerr");
- if(d.length<10){err.textContent="Add a description of at least 10 characters so staff can match it.";$("rd").focus();return}
- if(/\d{7,}|@|\d{3}[\s-]\d{3,}/.test(d)){err.textContent="Remove phone numbers, ID numbers, or email addresses from the description.";$("rd").focus();return}
- if(!$("rdt").value){err.textContent="Choose a date.";return}
- err.textContent="";
- var n=data.length?Math.max.apply(null,data.map(function(x){return +x.id.slice(1)}))+1:1;
- data.push({id:"L"+("00"+n).slice(-3),kind:document.querySelector('input[name=kind]:checked').value,cat:$("rc").value,desc:d,date:$("rdt").value,loc:$("rl").value,status:"pending"});
- save();$("rd").value="";renderStaff();renderList();toast("Report sent. Staff will review it soon.");
-};
+        $("rf").onsubmit = function (e) {
+            e.preventDefault(); var d = $("rd").value.trim(), err = $("rerr");
+            if (d.length < 10) { err.textContent = "Add a description of at least 10 characters so staff can match it."; $("rd").focus(); return }
+            if (/\d{7,}|@|\d{3}[\s-]\d{3,}/.test(d)) { err.textContent = "Remove phone numbers, ID numbers, or email addresses from the description."; $("rd").focus(); return }
+            if (!$("rdt").value) { err.textContent = "Choose a date."; return }
+            err.textContent = "";
+            var n = data.length ? Math.max.apply(null, data.map(function (x) { return +x.id.slice(1) })) + 1 : 1;
+            data.push({ id: "L" + ("00" + n).slice(-3), kind: document.querySelector('input[name=kind]:checked').value, cat: $("rc").value, desc: d, date: $("rdt").value, loc: $("rl").value, status: "pending" });
+            save(); $("rd").value = ""; renderStaff(); renderList(); toast("Report sent. Staff will review it soon.");
+        };
 
-function route(){
- var h=(location.hash||"#listings").slice(1);if(["listings","report","staff"].indexOf(h)<0)h="listings";
- [].forEach.call(document.querySelectorAll(".view"),function(v){v.classList.toggle("on",v.id==="v-"+h)});
- [].forEach.call(document.querySelectorAll("nav a"),function(a){if(a.dataset.v===h)a.setAttribute("aria-current","page");else a.removeAttribute("aria-current")});
- if(h==="staff")renderStaff();window.scrollTo(0,0);
-}
-window.addEventListener("hashchange",route);route();renderList();
-</script>
+        function route() {
+            var h = (location.hash || "#listings").slice(1); if (["listings", "report", "staff"].indexOf(h) < 0) h = "listings";
+            [].forEach.call(document.querySelectorAll(".view"), function (v) { v.classList.toggle("on", v.id === "v-" + h) });
+            [].forEach.call(document.querySelectorAll("nav a"), function (a) { if (a.dataset.v === h) a.setAttribute("aria-current", "page"); else a.removeAttribute("aria-current") });
+            if (h === "staff") renderStaff(); window.scrollTo(0, 0);
+        }
+        window.addEventListener("hashchange", route); route(); renderList();
+    </script>
 </body>
+
 </html>
